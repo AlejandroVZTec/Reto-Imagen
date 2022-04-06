@@ -95,6 +95,8 @@ Pt = (4*pi)^3*physconst('Boltzmann')*Ts/tau/target.MeanRCS/lambda^2*maxrange^4*d
 % Set the peak transmit power to the value obtained from the radar equation.
 transmitter.PeakPower = Pt;
 
+% Create radiator and collector objects that operate at 10 GHz. Create a free space path for the propagation of the 
+% pulse to and from the target. Then, create a receiver.pulse to and from the target.
 radiator = phased.Radiator(...
     'PropagationSpeed',c,...
     'OperatingFrequency',fc,'Sensor',antenna);
@@ -110,6 +112,8 @@ receiver = phased.ReceiverPreamp('NoiseFigure',0,...
 numPulses = 25;
 rx_puls = zeros(100,numPulses);
 
+% Propagate 25 pulses to and from the target. Collect the echoes at the receiver, and store them in a 25-Propagate 25 pulses to and from the target. 
+column  matrix named rx_puls. column  matrix named rx_puls. 
 for n = 1:numPulses
     wf = waveform();
     [wf,txstatus] = transmitter(wf);
@@ -120,6 +124,11 @@ for n = 1:numPulses
     wf = collector(wf,tgtang);
     rx_puls(:,n) = receiver(wf,~txstatus);
 end
+
+
+% Create a range-Doppler response object that uses the matched filter approach. 
+% Configure this object to show radial speed rather than Doppler frequency. 
+% Use plotResponse to plot the range versus speed. Show radial speed rather than Doppler frequency. 
 
 rangedoppler = phased.RangeDopplerResponse(...
     'RangeMethod','Matched Filter',...

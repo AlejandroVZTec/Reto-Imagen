@@ -1,3 +1,7 @@
+% Clase 30 de Marzo
+% Aimee Delgado
+% Orlando Santos
+
 numberOfPDE = 1;
 model = createpde(numberOfPDE);
 geometryFromEdges(model,@squareg);
