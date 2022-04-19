@@ -53,6 +53,16 @@ edgemap1 = abs(conv2(L1,dxp1,'same'))+abs(conv2(L1,dyp1,'same'));
 imshow(f1+edgemap1,[0,1]);
 
 %imagen 2
+[L2,Centers2] = imsegkmeans(int8(255*f2),2);
+B2 = labeloverlay(f2,L2);
+imshow(B2)
+title("Labeled Image")
+imshow(int8(255*f2)<Centers2(1),[])
+imshow(int8(255*f2)<Centers2(2),[])
+imshow(int8(255*f2)>Centers2(3),[])
+edgemap2 = abs(conv2(L2,dxp2,'same'))+abs(conv2(L2,dyp2,'same'));
+imshow(f2+edgemap2,[0,1]);
+
 
 %% K=3
 %imagen 1
@@ -67,6 +77,16 @@ edgemap1 = abs(conv2(L1,dxp1,'same'))+abs(conv2(L1,dyp1,'same'));
 imshow(f1+edgemap1,[0,1]);
 
 %imagen 2
+[L2,Centers2] = imsegkmeans(int8(255*f2),3);
+B2 = labeloverlay(f2,L2);
+imshow(B2)
+title("Labeled Image")
+imshow(int8(255*f2)<Centers2(1),[])
+imshow(int8(255*f2)<Centers2(2),[])
+imshow(int8(255*f2)>Centers2(3),[])
+edgemap2 = abs(conv2(L2,dxp2,'same'))+abs(conv2(L2,dyp2,'same'));
+imshow(f2+edgemap2,[0,1]);
+
 
 %% K=4
 %imagen 1
@@ -81,7 +101,22 @@ edgemap1 = abs(conv2(L1,dxp1,'same'))+abs(conv2(L1,dyp1,'same'));
 imshow(f1+edgemap1,[0,1]);
 
 %imagen 2
-
+[L2,Centers2] = imsegkmeans(int8(255*f2),4);
+B2 = labeloverlay(f2,L2);
+imshow(B2)
+title("Labeled Image")
+imshow(int8(255*f2)<Centers2(1),[])
+imshow(int8(255*f2)<Centers2(2),[])
+imshow(int8(255*f2)>Centers2(3),[])
+edgemap2 = abs(conv2(L2,dxp2,'same'))+abs(conv2(L2,dyp2,'same'));
+imshow(f2+edgemap2,[0,1]);
 
 
 %% 
+
+
+
+
+
+
+
