@@ -116,13 +116,28 @@ imshow(f2+edgemap2,[0,1]);
 %% Closing
 %imagen 1
 
-%% Gradient
+
 %imagen 2
 
+
+%% Gradient
+%imagen 1
 se1 = strel('disk',6);
 BW1 = imdilate(f1,se1) - imerode(f1,se1);
 imshow(BW1,[0,0.25]), title('Gradient')
 
+%imagen 2
+se2 = strel('disk',3);
+BW2 = imdilate(f2,se2) - imerode(f2,se2);
+imshow(BW2,[0,0.25]), title('Gradient')
+
+%% Reducción falsos positivos/negativos
+
+
+%% Pulmón derecho (1era imagen)
+
+
+%% Hueso cadera izquierda (2da imagen)
 
 
 
