@@ -112,7 +112,16 @@ edgemap2 = abs(conv2(L2,dxp2,'same'))+abs(conv2(L2,dyp2,'same'));
 imshow(f2+edgemap2,[0,1]);
 
 
-%% 
+%% Watersherd Segementation
+%% Closing
+%imagen 1
+
+%% Gradient
+%imagen 2
+
+se1 = strel('disk',6);
+BW1 = imdilate(f1,se1) - imerode(f1,se1);
+imshow(BW1,[0,0.25]), title('Gradient')
 
 
 
