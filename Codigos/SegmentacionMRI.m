@@ -115,21 +115,25 @@ imshow(f2+edgemap2,[0,1]);
 %% Watersherd Segementation
 %% Closing
 %imagen 1
-
+se1 = strel('disk',6);
+BW1 = imclose(f1,se1);
+imshow(BW1), title('Closing1')
 
 %imagen 2
-
+se2 = strel('disk',3);
+BW2 = imclose(f2,se2);
+imshow(BW2), title('Closing2')
 
 %% Gradient
 %imagen 1
 se1 = strel('disk',6);
 BW1 = imdilate(f1,se1) - imerode(f1,se1);
-imshow(BW1,[0,0.25]), title('Gradient')
+imshow(BW1,[0,0.25]), title('Gradient1')
 
 %imagen 2
 se2 = strel('disk',3);
 BW2 = imdilate(f2,se2) - imerode(f2,se2);
-imshow(BW2,[0,0.25]), title('Gradient')
+imshow(BW2,[0,0.25]), title('Gradient2')
 
 %% Reducción falsos positivos/negativos
 
