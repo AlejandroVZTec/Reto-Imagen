@@ -135,6 +135,7 @@ se2 = strel('disk',3);
 BW2 = imdilate(f2,se2) - imerode(f2,se2);
 imshow(BW2,[0,0.25]), title('Gradient2')
 
+
 %% Reducción falsos positivos/negativos
 
 
