@@ -1,4 +1,7 @@
-numberOfPDE=1;
+% Ecuación Longitud de Onda
+
+% Create a model object including a geometry described with the function squareg.
+çnumberOfPDE=1;
 model=createpde(numberOfPDE);
 geometryFromEdges(model,@squareg);
 pdegplot(model,'EdgeLabels','on');
@@ -8,11 +11,13 @@ title 'Geometry with Edge Labels Displayed';
 xlabel x
 ylabel y
 
+% Specify the PDE coefficients and set zero Dirichlet boundary conditions on the left and zero Neumann boundary conditions 
 m=1;c=1;a=0;f=0;
 specifyCoefficients(model,'m',m,'d',0,'c',c,'a',a,'f',f);
 applyBoundaryCondition(model,'dirichlet','Edge',[4,2],'u',0);
 applyBoundaryCondition(model,'neumann','Edge',[3,1],'g',0);
 
+% Plot a mesh of the model you defined
 generateMesh(model);
 figure
 pdemesh(model);
