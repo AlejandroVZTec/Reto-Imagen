@@ -8,8 +8,8 @@ figure(1)
 imshow(f,[]); % mostrar imagen con nuevo tamaño
 
 % Disk for clossing labels
-%diskse= strel('disk',5);
-%diskse11= strel('disk',11);
+diskse= strel('disk',5);
+diskse11= strel('disk',11);
 
 %K-MEANS
 [L,Centers] = imsegkmeans(uint8(255*f),3);
@@ -56,7 +56,7 @@ figure(3)
 imshow(labeled,[])
 colormap('cool')
 
- %lefthio =(--index or
+%lefthio =(--index or
 %index found== 94, 86
 PelvisLabel=(--94);
 figure(4)

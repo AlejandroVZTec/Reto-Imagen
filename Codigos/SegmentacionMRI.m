@@ -89,7 +89,7 @@ dyp1=[1,0;0,-1]; %detección de orillas, máscara de roberts
 edgemap1 = abs(conv2(L1,dxp1,'same'))+abs(conv2(L1,dyp1,'same')); %convolución de segmentación
 subplot(1,3,3)
 imshow(f1+edgemap1,[0,1]); %muestra imagen con mapa
-L(edgeC1) = 0;
+L1(edgeC1) = 0;
 
 %imagen 2
 edgeC2 = edge(f2,'Canny'); %orillas 
@@ -100,20 +100,82 @@ D2 = bwdist(edgeC2); %mapa de distancia
 subplot(1,3,2)
 imshow(D2,[])
 title('Distance Transform of Binary Image')
-L = watershed(D2); %watershed
+L2 = watershed(D2); %watershed
 dxp2=[0,1;-1,0]; %detección de orillas, máscara de roberts
 dyp2=[1,0;0,-1]; %detección de orillas, máscara de roberts
-edgemap2 = abs(conv2(L,dxp2,'same'))+abs(conv2(L,dyp2,'same')); %convolución de segmentación
+edgemap2 = abs(conv2(L2,dxp2,'same'))+abs(conv2(L2,dyp2,'same')); %convolución de segmentación
 subplot(1,3,3)
 imshow(f2+edgemap2,[0,1]); %muestra imagen con mapa
-L(edgeC2) = 0;
+L2(edgeC2) = 0;
 
 %% Pulmón derecho (1era imagen)
-
-Leftlung= L==479 | L==459 | L==433 | L==578 | L==719 | L==694 | L==710;
+Leftlung= L1==479 | L1==459 | L1==433 | L1==578 | L1==719 | L1==694 | L1==710;
 imshow(Leftlung,[]);
 
+diskse=strel('disk',5);
+Leftlung_close=imclose(Leftlung,diskse);
+imshow(Leftlung_close)
+
+B_1=labeloverlay(f1,Leftlung_close);
+imshow(B_1);
+title("Left lung overlay");
+
+disksel1=strel('disk',11);
+label_lung=imopen(Leftlung_close,disksel1);
+imshow(label_lung);
+
+B_1=labeloverlay(f1,label_lung);
+imshow(B_1)
+title("Final left lung overlay");
+
 %% Hueso cadera izquierda (2da imagen)
+%LABELS
+%First label
+figure(5)
+subplot(3,2,1)
+title('First Label')
+label_one = L2== 1;
+imshow(label_one)
+% remove false negatives wiht imclose
+label_close_one = imclose(label_one,diskse);
+subplot(3,2,2)
+imshow(label_close_one)
+
+%second label
+label_two = L2 == 2;
+subplot(3,2,3)
+imshow(label_two)
+title('Second Label')
+% remove false negatives wiht imclose
+label_close_two = imclose(label_two,diskse);
+subplot(3,2,4)
+imshow(label_close_two)
+
+%Third label
+label_three = L2 == 3;
+subplot(3,2,5)
+imshow(label_three)
+title('Label Three')
+% remove false negatives wiht imclose
+label_close_three = imclose(label_three,diskse);
+subplot(3,2,6)
+imshow(label_close_three)
+
+cc = bwconncomp(label_close_three,4);
+labeled = labelmatrix(cc);
+figure(4)
+imshow(labeled,[])
+colormap('cool')
+
+PelvisLabel=(--94);
+figure(5)
+imshow(labeled==PelvisLabel,[])
+B = labeloverlay(f,labeled==PelvisLabel);
+imshow(B)
+title("Left Hip overlay")
+
+
+
 
 
 
