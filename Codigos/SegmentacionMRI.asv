@@ -32,48 +32,62 @@ dyp2=[1,0;0,-1];
 edgemap2 = abs(conv2(seg2,dxp2,'same'))+abs(conv2(seg2,dyp2,'same'));
 imshow(f2+edgemap2,[0,1]);
 
-
+%% Disk for clossing labels
+diskse= strel('disk',5);
+diskse11= strel('disk',11);
 %% K Means
 %% K=2
 %imagen 1
 [L1,Centers1] = imsegkmeans(uint8(255*f1),2);
 B1 = labeloverlay(f1,L1);
-imshow(B1,[]);
+imshow(L1,[]);
 title("Labeled Image")
 
 %imagen 2
 [L2,Centers2] = imsegkmeans(uint8(255*f2),2);
 B2 = labeloverlay(f2,L2);
-imshow(B2,[])
+imshow(L2,[])
 title("Labeled Image")
 
 %% K=3
 %imagen 1
 [L1,Centers1] = imsegkmeans(uint8(255*f1),3);
 B1 = labeloverlay(f1,L1);
-imshow(B1,[]);
+imshow(L1,[]);
 title("Labeled Image")
 
 %imagen 2
-[L2,Centers2] = imsegkmeans(uint8(255*f2),3);
+[L2,Centers2] = imsegkmeans(int8(255*f2),3);
 B2 = labeloverlay(f2,L2);
-imshow(B2,[]);
+imshow(L2,[]);
 title("Labeled Image")
 
 %% K=4
 %imagen 1
 [L1,Centers1] = imsegkmeans(uint8(255*f1),4);
 B1 = labeloverlay(f1,L1);
-imshow(B1,[]);
+imshow(L1,[]);
 title("Labeled Image")
 
 %imagen 2
 [L2,Centers2] = imsegkmeans(uint8(255*f2),4);
 B2 = labeloverlay(f2,L2);
-imshow(B2,[]);
+imshow(L2,[]);
 title("Labeled Image")
 
 %% Watersherd Segementation
+%% Closing
+%imagen 1
+se1 = strel('disk',6);
+BW1 = imclose(f1,se1);
+imshow(BW1), title('Closing1')
+
+%imagen 2
+se2 = strel('disk',3);
+BW2 = imclose(f2,se2);
+imshow(BW2), title('Closing2')
+
+%% Gradient
 %imagen 1
 edgeC1 = edge(f1,'Canny'); %orillas 
 figure(3)
