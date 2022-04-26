@@ -20,44 +20,43 @@ imshow(rescale(SI))
 whos
 
 %Calculate Symmetric GLCM for Grayscale Image
+I = imread('cell.tif');
 [glcm,SI] = graycomatrix(I,'Offset',[2 0],'Symmetric',true);
 glcm
 imshow(rescale(SI))
 
 %% Segundo ejercicio
 %Using LBP Features to Differentiate Images by Texture
-brickWall = imread('bricks.jpg');
-rotatedBrickWall = imread('bricksRotated.jpg');
-carpet = imread('carpet.jpg');
-figure
-imshow(brickWall)
-title('Bricks')
+Fur_ = imread('fur.jpg');
+fur=rgb2gray(Fur_);
 
-figure
-imshow(rotatedBrickWall)
-title('Rotated Bricks')
+rotatedBrickWall_ = imread('bricksRotated.jpg');
+rotatedBrickWall=rgb2gray(rotatedBrickWall_);
 
-figure
-imshow(carpet)
-title('Carpet')
+carpet_ = imread('carpet.jpg');
+carpet=rgb2gray(carpet_);
 
-lbpBricks1 = extractLBPFeatures(brickWall,'Upright',false);
+figure; imshow(fur); title('Fur')
+figure; imshow(rotatedBrickWall); title('Rotated Bricks')
+figure; imshow(carpet); title('Carpet')
+
+
+lbpFur = extractLBPFeatures(fur,'Upright',false);
 lbpBricks2 = extractLBPFeatures(rotatedBrickWall,'Upright',false);
 lbpCarpet = extractLBPFeatures(carpet,'Upright',false);
 
-brickVsBrick = (lbpBricks1 - lbpBricks2).^2;
-brickVsCarpet = (lbpBricks1 - lbpCarpet).^2;
+furVsBrick = (lbpFur - lbpBricks2).^2;
+furVsCarpet = (lbpFur - lbpCarpet).^2;
 
 figure
-bar([brickVsBrick; brickVsCarpet]','grouped')
+bar([furVsBrick; furVsCarpet]','grouped')
 title('Squared Error of LBP Histograms')
 xlabel('LBP Histogram Bins')
-legend('Bricks vs Rotated Bricks','Bricks vs Carpet')
+legend('Fur vs Rotated Bricks','Fur vs Carpet')
 
 %Apply L1 Normalization to LBP Features
-
-I = imread('gantrycrane.png');
-I = im2gray(I);
+I = imread('building.jpg');
+I = rgb2gray(I);
 lbpFeatures = extractLBPFeatures(I,'CellSize',[32 32],'Normalization','None');
 numNeighbors = 8;
 numBins = numNeighbors*(numNeighbors-1)+3;
