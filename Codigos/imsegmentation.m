@@ -18,7 +18,7 @@ imhist(f)
 %% 
 %% Otsu method
 
-thr = graythresh(f)
+thr = graythresh(f) %threshold ootsu method
 seg1 = f > thr;
 imshow(seg1,[])
 dxp=[0,1;-1,0];
