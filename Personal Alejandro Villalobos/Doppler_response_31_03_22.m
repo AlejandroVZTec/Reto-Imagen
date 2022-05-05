@@ -1,4 +1,5 @@
 %%% Range-Doppler response, two radar systems
+
 %%% Pulse radar systems
 
 %% Range Doppler response using matched filter
@@ -11,8 +12,7 @@ response = phased.RangeDopplerResponse('DopplerFFTLengthSource','Property', ...
    'OperatingFrequency',RangeDopplerEx_MF_Fc);
 
 % Calculate the range-Doppler response.
-[resp,rng_grid,dop_grid] = response(RangeDopplerEx_MF_X, ...
-    RangeDopplerEx_MF_Coeff);
+[resp,rng_grid,dop_grid] = response(RangeDopplerEx_MF_X,RangeDopplerEx_MF_Coeff);
 
 % Plot the range-Doppler response.
 figure(1)
@@ -86,7 +86,7 @@ maxrange = c/(2*waveform.PRF);
 SNR = npwgnthresh(1e-6,1,'noncoherent');
 lambda = c/target.OperatingFrequency;
 maxrange = c/(2*waveform.PRF);
-tau = waveform.PulseWidth; %
+tau = waveform.PulseWidth;
 Ts = 290;
 dbterm = db2pow(SNR - 2*transmitter.Gain);
 Pt = (4*pi)^3*physconst('Boltzmann')*Ts/tau/target.MeanRCS/lambda^2*maxrange^4*dbterm;
@@ -94,8 +94,6 @@ Pt = (4*pi)^3*physconst('Boltzmann')*Ts/tau/target.MeanRCS/lambda^2*maxrange^4*d
 % Set the peak transmit power to the value obtained from the radar equation.
 transmitter.PeakPower = Pt;
 
-% Create radiator and collector objects that operate at 10 GHz. Create a free space path for the propagation of the 
-% pulse to and from the target. Then, create a receiver.pulse to and from the target.
 radiator = phased.Radiator(...
     'PropagationSpeed',c,...
     'OperatingFrequency',fc,'Sensor',antenna);
@@ -111,8 +109,6 @@ receiver = phased.ReceiverPreamp('NoiseFigure',0,...
 numPulses = 25;
 rx_puls = zeros(100,numPulses);
 
-% Propagate 25 pulses to and from the target. Collect the echoes at the receiver, and store them in a 25-Propagate 25 pulses to and from the target. 
-column  matrix named rx_puls. column  matrix named rx_puls. 
 for n = 1:numPulses
     wf = waveform();
     [wf,txstatus] = transmitter(wf);
@@ -124,14 +120,9 @@ for n = 1:numPulses
     rx_puls(:,n) = receiver(wf,~txstatus);
 end
 
-
-% Create a range-Doppler response object that uses the matched filter approach. 
-% Configure this object to show radial speed rather than Doppler frequency. 
-% Use plotResponse to plot the range versus speed. Show radial speed rather than Doppler frequency. 
-
-rangedoppler1 = phased.RangeDopplerResponse(...
+rangedoppler = phased.RangeDopplerResponse(...
     'RangeMethod','Matched Filter',...
     'PropagationSpeed',c,...
     'DopplerOutput','Speed','OperatingFrequency',fc);
 figure(3)
-plotResponse(rangedoppler1,rx_puls,getMatchedFilter(waveform))
+plotResponse(rangedoppler,rx_puls,getMatchedFilter(waveform))

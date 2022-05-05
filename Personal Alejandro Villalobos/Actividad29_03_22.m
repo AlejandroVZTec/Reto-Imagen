@@ -1,8 +1,3 @@
-% Clase 30 de Marzo
-% Aimee Delgado
-% Orlando Santos
-% Alejandro Villalobos
-
 numberOfPDE = 1;
 model = createpde(numberOfPDE);
 geometryFromEdges(model,@squareg);
@@ -17,13 +12,11 @@ m = 1;
 c = 1;
 a = 0;
 f = 0;
-
 specifyCoefficients(model,'m',m,'d',0,'c',c,'a',a,'f',f);
-applyBoundaryCondition(model,'dirichlet','Edge',[4,2],'u',0);
-applyBoundaryCondition(model,'neumann','Edge',([1,3]),'g',0);
+applyBoundaryCondition(model,"dirichlet","Edge",[4,2],"u",0);
+applyBoundaryCondition(model,'neumann','Edge',([1 3]),'g',0);
 
-generateMesh(model);
-figure
+generateMesh(model)
 pdemesh(model);
 ylim([-1.1 1.1]);
 axis equal
@@ -40,16 +33,15 @@ model.SolverOptions.ReportStatistics = 'on';
 result = solvepde(model,tlist);
 u = result.NodalSolution;
 
-figure
+Figure
 umax = max(max(u));
 umin = min(min(u));
-
 for i = 1:n
     pdeplot(model,'XYData',u(:,i),'ZData',u(:,i),'ZStyle','continuous','Mesh','off');
     axis([-1 1 -1 1 umin umax]);
-    caxis([umin umax]);
+    caxis([umin umax])
     xlabel x
-    ylabel y
+    ylabel y 
     zlabel z
     M(i) = getframe;
 end

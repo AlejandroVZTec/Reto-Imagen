@@ -1,4 +1,5 @@
 %%% Range-Doppler response, two radar systems
+
 %%% Pulse radar systems
 
 %% Range Doppler response using matched filter
@@ -59,7 +60,7 @@ hrdresp = phased.RangeDopplerResponse(...
 figure(2)
 plotResponse(hrdresp,...
    RangeDopplerEx_Dechirp_X,RangeDopplerEx_Dechirp_Xref,...
-   'Unit','db','NormalizeDoppler',true)
+   'Unit','db','NormalizeDoppler',true).
 
 %%% Range-Speed response pattern of target
 
@@ -86,7 +87,7 @@ maxrange = c/(2*waveform.PRF);
 SNR = npwgnthresh(1e-6,1,'noncoherent');
 lambda = c/target.OperatingFrequency;
 maxrange = c/(2*waveform.PRF);
-tau = waveform.PulseWidth; %
+tau = waveform.PulseWidth;
 Ts = 290;
 dbterm = db2pow(SNR - 2*transmitter.Gain);
 Pt = (4*pi)^3*physconst('Boltzmann')*Ts/tau/target.MeanRCS/lambda^2*maxrange^4*dbterm;
@@ -129,9 +130,9 @@ end
 % Configure this object to show radial speed rather than Doppler frequency. 
 % Use plotResponse to plot the range versus speed. Show radial speed rather than Doppler frequency. 
 
-rangedoppler1 = phased.RangeDopplerResponse(...
+rangedoppler = phased.RangeDopplerResponse(...
     'RangeMethod','Matched Filter',...
     'PropagationSpeed',c,...
     'DopplerOutput','Speed','OperatingFrequency',fc);
 figure(3)
-plotResponse(rangedoppler1,rx_puls,getMatchedFilter(waveform))
+plotResponse(rangedoppler,rx_puls,getMatchedFilter(waveform))

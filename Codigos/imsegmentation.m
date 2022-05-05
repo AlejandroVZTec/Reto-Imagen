@@ -18,7 +18,7 @@ imhist(f)
 %% 
 %% Otsu method
 
-thr = graythresh(f)
+thr = graythresh(f) %threshold ootsu method
 seg1 = f > thr;
 imshow(seg1,[])
 dxp=[0,1;-1,0];
@@ -28,6 +28,7 @@ imshow(f+edgemap,[0,1]);
 % Compare the otsu provided threshold vs the one you selected in the
 % preview step.
 % Do you trust the Otsu treshold?
+%
 % Select your own image and compute the otsu threshold
 %% Kmeans segmentation
 
