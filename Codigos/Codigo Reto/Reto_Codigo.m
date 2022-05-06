@@ -17,17 +17,14 @@ SegWhiteFree109 = niftiread("white-109-FSurfer.nii");% White Matter Segmentation
 %Subject 101
 SegGrayFSL101 = niftiread("sub-101_brain_pve_1.nii"); % Gray Matter Segmentation
 SegWhiteFSL101 = niftiread("sub-101_brain_pve_2.nii");% White Matter Segmentation
-BrainFSL101 = niftiread("sub-101_brain.nii");         % Volumes of the brain
 
 %Subject 102
 SegGrayFSL108 = niftiread("sub-108_brain_pve_1.nii"); % Gray Matter Segmentation
 SegWhiteFSL108 = niftiread("sub-108_brain_pve_2.nii");% White Matter Segmentation
-BrainFSL108 = niftiread("sub-108_brain.nii");         % Volumes of the brain
 
 %Subject 103
 SegGrayFSL109 = niftiread("sub-109_brain_pve_1.nii"); % Gray Matter Segmentation
 SegWhiteFSL109 = niftiread("sub-109_brain_pve_2.nii");% White Matter Segmentation
-BrainFSL109 = niftiread("sub-109_brain.nii");         % Volumes of the brain
 
 %% Selección de labels
 %Labels Free Surfer
@@ -66,35 +63,39 @@ diceResultWhite109 = dice(flip(imrotate(cwfree109,-90),2),imrotate(cwfsl109,90))
 diceResultGray109 = dice(flip(imrotate(cgfree109,-90),2),imrotate(cgfsl109,90));
 
 %% Graficar segmentaciones
-%Materia Gris
-figure(1); 
-imshow(flip(imrotate(cgfree101(:,:,138),-90),2)); title('Free');
-figure(9); 
-imshow(imrotate(cgfsl101(:,:,138),90)); title('Fsl');
+%--Materia Gris
+%Sujeto 101
+figure(1); imshow(flip(imrotate(cgfree101(:,:,138),-90),2)); title('Free-Sujeto 101');
+figure(2); imshow(imrotate(cgfsl101(:,:,138),-90)); title('Fsl-Sujeto 101');
 
-figure(2); 
-imshow(flip(imrotate(cgfree108(:,:,138),-90),2)); title('Free');
-figure(9); 
-imshow(imrotate(cgfsl108(:,:,138),90)); title('Fsl');
-
+%Sujeto 108
 figure(3); 
-imshow(flip(imrotate(cgfree109(:,:,138),-90),2)); title('Free');
-figure(11); 
-imshow(imrotate(cgfsl108(:,:,138),90)); title('Fsl');
+imshow(flip(imrotate(cgfree108(:,:,138),-90),2)); title('Free-Sujeto 108');
+figure(4); 
+imshow(imrotate(cgfsl108(:,:,138),90)); title('Fsl-Sujeto 108');
 
-%Materia Blanca
-figure(1); 
-imshow(flip(imrotate(cgfree101(:,:,138),-90),2)); title('Free');
+%Sujeto 109
+figure(5); 
+imshow(flip(imrotate(cgfree109(:,:,138),-90),2)); title('Free-Sujeto 109');
+figure(6); 
+imshow(imrotate(cgfsl109(:,:,138),-90)); title('Fsl-Sujeto 109');
+
+%--Materia Blanca
+%Sujeto 101
+figure(7); 
+imshow(flip(imrotate(cgfree101(:,:,138),-90),2)); title('Free-Sujeto 101');
+figure(8); 
+imshow(imrotate(cwfsl101(:,:,138),-90)); title('Fsl-Sujeto 101');
+
+%Sujeto 108
 figure(9); 
-imshow(imrotate(cwfsl101(:,:,138),90)); title('Fsl');
+imshow(flip(imrotate(cgfree108(:,:,138),-90),2)); title('Free-Sujeto 108');
+figure(10); 
+imshow(imrotate(cgfsl108(:,:,138),-90)); title('Fsl-Sujeto 108');
 
-figure(2); 
-imshow(flip(imrotate(cgfree108(:,:,138),-90),2)); title('Free');
-figure(9); 
-imshow(imrotate(cgfsl108(:,:,138),90)); title('Fsl');
-
-figure(3); 
-imshow(flip(imrotate(cgfree109(:,:,138),-90),2)); title('Free');
+%Sujeto 109
 figure(11); 
-imshow(imrotate(cgfsl108(:,:,138),90)); title('Fsl');
+imshow(flip(imrotate(cgfree109(:,:,138),-90),2)); title('Free-Sujeto 109');
+figure(12); 
+imshow(imrotate(cgfsl109(:,:,138),-90)); title('Fsl-Sujeto 109');
 

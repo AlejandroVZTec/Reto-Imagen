@@ -17,17 +17,14 @@ SegWhiteFree109 = niftiread("white-109-FSurfer.nii");% White Matter Segmentation
 %Subject 101
 SegGrayFSL101 = niftiread("sub-101_brain_pve_1.nii"); % Gray Matter Segmentation
 SegWhiteFSL101 = niftiread("sub-101_brain_pve_2.nii");% White Matter Segmentation
-BrainFSL101 = niftiread("sub-101_brain.nii");         % Volumes of the brain
 
 %Subject 102
-SegGrayFSL108 = niftiread("sub-103_brain_pve_1.nii"); % Gray Matter Segmentation
-SegWhiteFSL108 = niftiread("sub-103_brain_pve_2.nii");% White Matter Segmentation
-BrainFSL108 = niftiread("sub-103_brain.nii");         % Volumes of the brain
+SegGrayFSL108 = niftiread("sub-108_brain_pve_1.nii"); % Gray Matter Segmentation
+SegWhiteFSL108 = niftiread("sub-108_brain_pve_2.nii");% White Matter Segmentation
 
 %Subject 103
-SegGrayFSL109 = niftiread("sub-104_brain_pve_1.nii"); % Gray Matter Segmentation
-SegWhiteFSL109 = niftiread("sub-104_brain_pve_2.nii");% White Matter Segmentation
-BrainFSL109 = niftiread("sub-104_brain.nii");         % Volumes of the brain
+SegGrayFSL109 = niftiread("sub-109_brain_pve_1.nii"); % Gray Matter Segmentation
+SegWhiteFSL109 = niftiread("sub-109_brain_pve_2.nii");% White Matter Segmentation
 
 %% Selecci�n de labels
 %Labels Free Surfer
@@ -52,44 +49,53 @@ cgfsl108 = SegGrayFSL108 == 1;
 cwfsl109 = SegWhiteFSL109 == 1;
 cgfsl109 = SegGrayFSL109 == 1;
 
-%% Paciente 101
-p1101 = imresize(cwfsl101,[256 256]);
-Resicwfsl101 = permute(p1101,[1 3 2]);% El fsl cambia las dimensiones del cerebro en comparación con freesurfer
-p2101 = imresize(cgfsl101,[256 256]); % es por esto que permute cambia las dimenciones para que coincidan y muestren
-Resicgfsl101 = permute(p2101,[1 3 2]); % el mismo punto de vista, sagital, horizontal o en estos casos frontal
-
-%% Paciente 108
-p1108 = imresize(cwfsl108,[256 182]); % Los archivos de labels del fsl se guardan en un formato 256x182x256
-Resicwfsl108 = permute(p1108,[1 3 2]);% mientras que free tiene 256x256x265, el imresize vuleve el arreglo
-p2108 = imresize(cgfsl108,[256 256]); % de fsl a la misma dimensión del archivo de labels de freesurfer
-Resicgfsl108 = permute(p2108,[1 3 2]);
-
-%% Paciente 109
-p1109 = imresize(cwfsl109,[256 256]);
-Resicwfsl109 = permute(p1109,[1 3 2]);
-p2109 = imresize(cgfsl109,[256 256]);
-Resicgfsl109 = permute(p2109,[1 3 2]);
-
 %% Evaluacion DICE
 %Sujeto 101
-diceResultWhite101 = dice(flip(imrotate(cwfree101,-90),2),imrotate(Resicwfsl101,90));
-diceResultGray101 = dice(flip(imrotate(cgfree101,-90),2),imrotate(Resicgfsl101,90));
+diceResultWhite101 = dice(flip(imrotate(cwfree101,-90),2),imrotate(cwfsl101,90));
+diceResultGray101 = dice(flip(imrotate(cgfree101,-90),2),imrotate(cgfsl101,90));
 
 %Sujeto 108
-diceResultWhite108 = dice(flip(imrotate(cwfree108,-90),2),imrotate(Resicwfsl108,90));
-diceResultGray108 = dice(flip(imrotate(cgfree108,-90),2),imrotate(Resicgfsl108,90));
+diceResultWhite108 = dice(flip(imrotate(cwfree108,-90),2),imrotate(cwfsl108,90));
+diceResultGray108 = dice(flip(imrotate(cgfree108,-90),2),imrotate(cgfsl108,90));
 
 %Sujeto 109
-diceResultWhite109 = dice(flip(imrotate(cwfree109,-90),2),imrotate(Resicwfsl109,90));
-diceResultGray109 = dice(flip(imrotate(cgfree109,-90),2),imrotate(Resicgfsl109,90));
+diceResultWhite109 = dice(flip(imrotate(cwfree109,-90),2),imrotate(cwfsl109,90));
+diceResultGray109 = dice(flip(imrotate(cgfree109,-90),2),imrotate(cgfsl109,90));
 
+%% Graficar segmentaciones
+%--Materia Gris
+%Sujeto 101
+figure(1); imshow(flip(imrotate(cgfree101(:,:,138),-90),2)); title('Free-Sujeto 101');
+figure(2); imshow(imrotate(cgfsl101(:,:,138),-90)); title('Fsl-Sujeto 101');
+
+%Sujeto 108
+figure(3); 
+imshow(flip(imrotate(cgfree108(:,:,138),-90),2)); title('Free-Sujeto 108');
+figure(4); 
+imshow(imrotate(cgfsl108(:,:,138),-90)); title('Fsl-Sujeto 108');
+
+%Sujeto 109
+figure(5); 
+imshow(flip(imrotate(cgfree109(:,:,138),-90),2)); title('Free-Sujeto 109');
+figure(6); 
+imshow(imrotate(cgfsl109(:,:,138),-90)); title('Fsl-Sujeto 109');
+
+%--Materia Blanca
+%Sujeto 101
+figure(7); 
+imshow(flip(imrotate(cgfree101(:,:,138),-90),2)); title('Free-Sujeto 101');
 figure(8); 
-imshow(flip(imrotate(cw112(:,:,138),-90),2)); title('Free');
-figure(9); 
-imshow(imrotate(Resicwfsl112(:,:,138),90)); title('Fsl');
+imshow(imrotate(cwfsl101(:,:,138),-90)); title('Fsl-Sujeto 101');
 
+%Sujeto 108
+figure(9); 
+imshow(flip(imrotate(cgfree108(:,:,138),-90),2)); title('Free-Sujeto 108');
 figure(10); 
-imshow(flip(imrotate(cg112(:,:,138),-90),2)); title('Free');
+imshow(imrotate(cgfsl108(:,:,138),-90)); title('Fsl-Sujeto 108');
+
+%Sujeto 109
 figure(11); 
-imshow(imrotate(Resicgfsl112(:,:,138),90)); title('Fsl');
+imshow(flip(imrotate(cgfree109(:,:,138),-90),2)); title('Free-Sujeto 109');
+figure(12); 
+imshow(imrotate(cgfsl109(:,:,138),-90)); title('Fsl-Sujeto 109');
 
