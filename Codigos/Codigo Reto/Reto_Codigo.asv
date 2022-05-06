@@ -1,0 +1,95 @@
+%% RETO - Segmentación
+%% Cargando archivos
+% FREE SURFER
+%Subject 101
+SegGrayFree101 = niftiread("grey-101-FSurfer.nii"); % Gray Matter Segmentation
+SegWhiteFree101 = niftiread("white-101-FSurfer.nii");% White Matter Segmentation
+
+%Subject 108
+SegGrayFree108 = niftiread("grey-108-FSurfer.nii"); % Gray Matter Segmentation
+SegWhiteFree108 = niftiread("white-108-FSurfer.nii");% White Matter Segmentation
+
+%Subject 109
+SegGrayFree109 = niftiread("grey-109-FSurfer.nii"); % Gray Matter Segmentation
+SegWhiteFree109 = niftiread("white-109-FSurfer.nii");% White Matter Segmentation
+
+%FSL
+%Subject 101
+SegGrayFSL101 = niftiread("sub-101_brain_pve_1.nii"); % Gray Matter Segmentation
+SegWhiteFSL101 = niftiread("sub-101_brain_pve_2.nii");% White Matter Segmentation
+BrainFSL101 = niftiread("sub-101_brain.nii");         % Volumes of the brain
+
+%Subject 102
+SegGrayFSL108 = niftiread("sub-103_brain_pve_1.nii"); % Gray Matter Segmentation
+SegWhiteFSL108 = niftiread("sub-103_brain_pve_2.nii");% White Matter Segmentation
+BrainFSL108 = niftiread("sub-103_brain.nii");         % Volumes of the brain
+
+%Subject 103
+SegGrayFSL109 = niftiread("sub-104_brain_pve_1.nii"); % Gray Matter Segmentation
+SegWhiteFSL109 = niftiread("sub-104_brain_pve_2.nii");% White Matter Segmentation
+BrainFSL109 = niftiread("sub-104_brain.nii");         % Volumes of the brain
+
+%% Selección de labels
+%Labels Free Surfer
+    %Sujeto 101
+cwfree101 = SegWhiteFSL101 == 1; 
+cgfree101 = SegGrayFSL101 == 1;
+    %Sujeto 108
+cwfree108 = SegWhiteFSL108 == 1;
+cgfree108 = SegGrayFSL108 == 1;
+    %Sujeto 109
+cwfree109 = SegWhiteFSL109 == 1;
+cgfree109 = SegGrayFSL109 == 1;
+
+%Labels FSL
+    %Sujeto 101
+cwfsl101 = SegWhiteFSL101 == 1; 
+cgfsl101 = SegGrayFSL101 == 1;
+    %Sujeto 108
+cwfsl108 = SegWhiteFSL108 == 1;
+cgfsl108 = SegGrayFSL108 == 1;
+    %Sujeto 109
+cwfsl109 = SegWhiteFSL109 == 1;
+cgfsl109 = SegGrayFSL109 == 1;
+
+%% Paciente 101
+p1101 = imresize(cwfsl101,[256 256]);
+Resicwfsl101 = permute(p1101,[1 3 2]);% El fsl cambia las dimensiones del cerebro en comparaciÃ³n con freesurfer
+p2101 = imresize(cgfsl101,[256 256]); % es por esto que permute cambia las dimenciones para que coincidan y muestren
+Resicgfsl101 = permute(p2101,[1 3 2]); % el mismo punto de vista, sagital, horizontal o en estos casos frontal
+
+%% Paciente 108
+p1108 = imresize(cwfsl108,[256 182]); % Los archivos de labels del fsl se guardan en un formato 256x182x256
+Resicwfsl108 = permute(p1108,[1 3 2]);% mientras que free tiene 256x256x265, el imresize vuleve el arreglo
+p2108 = imresize(cgfsl108,[256 256]); % de fsl a la misma dimensiÃ³n del archivo de labels de freesurfer
+Resicgfsl108 = permute(p2108,[1 3 2]);
+
+%% Paciente 109
+p1109 = imresize(cwfsl109,[256 256]);
+Resicwfsl109 = permute(p1109,[1 3 2]);
+p2109 = imresize(cgfsl109,[256 256]);
+Resicgfsl109 = permute(p2109,[1 3 2]);
+
+%% Evaluacion DICE
+%Sujeto 101
+diceResultWhite101 = dice(flip(imrotate(cwfree101,-90),2),imrotate(Resicwfsl101,90));
+diceResultGray101 = dice(flip(imrotate(cgfree101,-90),2),imrotate(Resicgfsl101,90));
+
+%Sujeto 108
+diceResultWhite108 = dice(flip(imrotate(cwfree108,-90),2),imrotate(Resicwfsl108,90));
+diceResultGray108 = dice(flip(imrotate(cgfree108,-90),2),imrotate(Resicgfsl108,90));
+
+%Sujeto 109
+diceResultWhite109 = dice(flip(imrotate(cwfree109,-90),2),imrotate(Resicwfsl109,90));
+diceResultGray109 = dice(flip(imrotate(cgfree109,-90),2),imrotate(Resicgfsl109,90));
+
+figure(8); 
+imshow(flip(imrotate(cw112(:,:,138),-90),2)); title('Free');
+figure(9); 
+imshow(imrotate(Resicwfsl112(:,:,138),90)); title('Fsl');
+
+figure(10); 
+imshow(flip(imrotate(cg112(:,:,138),-90),2)); title('Free');
+figure(11); 
+imshow(imrotate(Resicgfsl112(:,:,138),90)); title('Fsl');
+
