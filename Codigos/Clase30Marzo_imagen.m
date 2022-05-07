@@ -1,6 +1,7 @@
 % Clase 30 de Marzo
 % Aimee Delgado
 % Orlando Santos
+% Alejandro Villalobos
 
 numberOfPDE = 1;
 model = createpde(numberOfPDE);

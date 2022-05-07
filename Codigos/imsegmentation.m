@@ -28,6 +28,7 @@ imshow(f+edgemap,[0,1]);
 % Compare the otsu provided threshold vs the one you selected in the
 % preview step.
 % Do you trust the Otsu treshold?
+%
 % Select your own image and compute the otsu threshold
 %% Kmeans segmentation
 

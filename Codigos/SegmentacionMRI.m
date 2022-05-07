@@ -75,18 +75,18 @@ title("Labeled Image")
 
 %% Watersherd Segementation
 %imagen 1
-edgeC1 = edge(f1,'Canny'); %orillas 
+edgeC1 = edge(f1,'Canny'); %observar las orillas 
 figure(3)
 subplot(1,3,1)
 imshow(edgeC1,[])
-D1 = bwdist(edgeC1); %mapa de distancia
+D1 = bwdist(edgeC1); %mapa de distancia water
 subplot(1,3,2)
 imshow(D1,[])
 title('Distance Transform of Binary Image')
 L1 = watershed(D1); %watershed
 dxp1=[0,1;-1,0]; %detección de orillas, máscara de roberts
-dyp1=[1,0;0,-1]; %detección de orillas, máscara de roberts
-edgemap1 = abs(conv2(L1,dxp1,'same'))+abs(conv2(L1,dyp1,'same')); %convolución de segmentación
+dyp1=[1,0;0,-1]; %detección de orillas, máscara de roberts aplicada
+edgemap1 = abs(conv2(L1,dxp1,'same'))+abs(conv2(L1,dyp1,'same')); %convolución de segmentación realizada
 subplot(1,3,3)
 imshow(f1+edgemap1,[0,1]); %muestra imagen con mapa
 L1(edgeC1) = 0;

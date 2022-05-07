@@ -26,7 +26,7 @@ glcm
 imshow(rescale(SI))
 
 %% Segundo ejercicio
-%Using LBP Features to Differentiate Images by Texture
+%Using LBP Features to Differentiate Images by texture
 Fur_ = imread('fur.jpg');
 fur=rgb2gray(Fur_);
 
@@ -62,7 +62,7 @@ numNeighbors = 8;
 numBins = numNeighbors*(numNeighbors-1)+3;
 lbpCellHists = reshape(lbpFeatures,numBins,[]);
 lbpCellHists = bsxfun(@rdivide,lbpCellHists,sum(lbpCellHists));
-lbpFeatures = reshape(lbpCellHists,1,[]);
+lbpFeatures = reshape(lbpCellHists,1,[]);% Utilizar reshape
 
 
 
