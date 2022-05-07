@@ -83,19 +83,19 @@ imshow(imrotate(cgfsl109(:,:,138),-90)); title('Fsl-Sujeto 109');
 %--Materia Blanca
 %Sujeto 101
 figure(7); 
-imshow(flip(imrotate(cgfree101(:,:,138),-90),2)); title('Free-Sujeto 101');
+imshow(flip(imrotate(cwfree101(:,:,138),-90),2)); title('Free-Sujeto 101');
 figure(8); 
 imshow(imrotate(cwfsl101(:,:,138),-90)); title('Fsl-Sujeto 101');
 
 %Sujeto 108
 figure(9); 
-imshow(flip(imrotate(cgfree108(:,:,138),-90),2)); title('Free-Sujeto 108');
+imshow(flip(imrotate(cwfree108(:,:,138),-90),2)); title('Free-Sujeto 108');
 figure(10); 
-imshow(imrotate(cgfsl108(:,:,138),-90)); title('Fsl-Sujeto 108');
+imshow(imrotate(cwfsl108(:,:,138),-90)); title('Fsl-Sujeto 108');
 
 %Sujeto 109
 figure(11); 
-imshow(flip(imrotate(cgfree109(:,:,138),-90),2)); title('Free-Sujeto 109');
+imshow(flip(imrotate(cwfree109(:,:,138),-90),2)); title('Free-Sujeto 109');
 figure(12); 
-imshow(imrotate(cgfsl109(:,:,138),-90)); title('Fsl-Sujeto 109');
+imshow(imrotate(cwfsl109(:,:,138),-90)); title('Fsl-Sujeto 109');
 
