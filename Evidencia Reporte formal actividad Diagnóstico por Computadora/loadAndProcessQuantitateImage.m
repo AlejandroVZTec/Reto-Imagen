@@ -1,5 +1,6 @@
 %Andrea Cavero - A01759770
 %Alejandro Villalobos Zepeda  - A01023762
+%Luis Orlando Santos Cruz  - A00827603
 %% Structural Elements
 filterDisk30 = strel('disk',3);
 filterDisk0 = strel('disk',5);
