@@ -253,8 +253,8 @@ maskarea = sum(sum(controlmask));
 for channel = 1:3
     
     ControlData = f(:,:,channel);
-    minv = min(min(ControlData));
-    aControlData = ControlData - minv;
+    minv = min(min(ControlData));%
+    aControlData = ControlData - minv;%
 %    imshow(ControlData,[]);
     histoData = reshape(ControlData(controlmask),1,[]);
     temp_mean = mean(histoData);
@@ -328,11 +328,11 @@ for channel = 1:3
     quantiativeControlData = [quantiativeControlData,meanGLCMSlope];
 
     GLCMSlope = [abs(log(1/2*GLCM_stats_1.Contrast/GLCM_stats_2.Contrast))/log(2)];
-    GLCMSlope = [GLCMSlope,abs(log(1/2*GLCM_stats_2.Contrast/GLCM_stats_3.Contrast))/log(2)];
-    GLCMSlope = [GLCMSlope,abs(log(1/4*GLCM_stats_1.Contrast/GLCM_stats_3.Contrast))/log(4)];
-    GLCMSlope = [GLCMSlope,abs(log(1/2*GLCM_stats_3.Contrast/GLCM_stats_4.Contrast))/log(2)];
-    GLCMSlope = [GLCMSlope,abs(log(1/4*GLCM_stats_2.Contrast/GLCM_stats_4.Contrast))/log(4)];
-    GLCMSlope = [GLCMSlope,abs(log(1/8*GLCM_stats_1.Contrast/GLCM_stats_4.Contrast))/log(8)];
+    GLCMSlope = [GLCMSlope,abs(log(1/2*GLCM_stats_2.Contrast/GLCM_stats_3.Contrast))/log(2)];%
+    GLCMSlope = [GLCMSlope,abs(log(1/4*GLCM_stats_1.Contrast/GLCM_stats_3.Contrast))/log(4)];%
+    GLCMSlope = [GLCMSlope,abs(log(1/2*GLCM_stats_3.Contrast/GLCM_stats_4.Contrast))/log(2)];%
+    GLCMSlope = [GLCMSlope,abs(log(1/4*GLCM_stats_2.Contrast/GLCM_stats_4.Contrast))/log(4)];%
+    GLCMSlope = [GLCMSlope,abs(log(1/8*GLCM_stats_1.Contrast/GLCM_stats_4.Contrast))/log(8)];%
 
     meanGLCMSlope = mean(GLCMSlope);
 
